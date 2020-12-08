@@ -1,0 +1,22 @@
+.card{
+    border: 1px solid black;
+    margin: 1rem;
+}
+.card-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.btn-group{
+    display: flex;
+    justify-content: space-around;
+    margin: 1rem;
+}
+
+.btn{
+    padding: 1rem 2rem;
+    background: green;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+}

@@ -1,42 +1,33 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pages: [],
-      isLoaded: false,
+import Navbar from './components/navbar/Navbar';
+import PagesDisplay from './components/PagesDisplay';
+
+const App = () => {
+  const [pages, setPages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      const result = await axios(
+        `https://pagesmanagement.azurewebsites.net/api/ResponsivePages`
+      );
+
+      console.log(result.data);
+      setPages(result.data);
+      setIsLoading(false);
     };
-  }
+    fetchItems();
+  }, []);
 
-  componentDidMount() {
-    fetch('https://pagesmanagement.azurewebsites.net/api/responsivepages')
-      .then((res) => res.json())
-      .then((json) => {
-        this.setState({
-          isLoaded: true,
-          pages: json,
-        });
-      });
-  }
-
-  render() {
-    const {pages, isLoaded} = this.state;
-
-    if(!isLoaded) {
-      return <div>Loading...</div>
-    }
-    return <div className='App'>
-      <ul>
-        {
-          pages.map(page=>(
-          <li key={page.id}>{page.title}<br /> {page.description}</li>
-          ))
-        }
-      </ul>
-    </div>;
-  }
-}
+  return (
+    <div className='container'>
+      <Navbar />
+      <PagesDisplay isLoading={isLoading} pages={pages} />   
+    </div>
+  );
+};
 
 export default App;
