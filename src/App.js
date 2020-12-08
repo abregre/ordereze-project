@@ -1,33 +1,42 @@
-import React, { useState, useEffect } from 'react';
+import React, {  Component } from 'react';
 import axios from 'axios';
 import './App.css';
 
 import Navbar from './components/navbar/Navbar';
+import AddPageForm from './components/AddPageForm';
 import PagesDisplay from './components/PagesDisplay';
 
-const App = () => {
-  const [pages, setPages] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchItems = async () => {
-      const result = await axios(
-        `https://pagesmanagement.azurewebsites.net/api/ResponsivePages`
-      );
+class App extends Component {
+  constructor(){
+    super();
+    this.state = {
+      Loading: true,
+      pages: []
+    }
+  }
 
-      console.log(result.data);
-      setPages(result.data);
-      setIsLoading(false);
-    };
-    fetchItems();
-  }, []);
+  componentDidMount(){
 
-  return (
-    <div className='container'>
-      <Navbar />
-      <PagesDisplay isLoading={isLoading} pages={pages} />   
-    </div>
-  );
+    axios.get('https://pagesmanagement.azurewebsites.net/Api/responsivePages')
+    .then(res=>{
+      const pages = res.data;
+      this.setState({pages,Loading:false})
+    })
+  }
+ 
+  
+  render(){
+    const {Loading,pages}= this.state
+
+    return (
+      <div className='container'>
+        <Navbar />
+        <AddPageForm />
+        <PagesDisplay Loading={Loading} pages={pages} />
+      </div>
+    );
+  }
 };
 
 export default App;

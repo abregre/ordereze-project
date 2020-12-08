@@ -14,8 +14,8 @@ const SinglePage = ({ page }) => {
       <p>Page {page.isActive ? 'is' : 'is not'} active</p>
       <span>Page published on {page.publishedOn}</span>
       <div className='btn-group'>
-        <button className="btn">Edit</button>
-        <button className="btn">Delete</button>
+        {/* <a href="#" className="btn">Edit</a>
+        <a href="#" className="btn">Delete</a> */}
       </div>
     </div>
   );

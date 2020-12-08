@@ -1,0 +1,36 @@
+.form-container{
+    max-width: 30rem;
+    width: 100%;
+    margin: 0 auto;    
+}
+.add-form{
+    display: flex;
+    flex-direction: column;
+}
+.form-group{  
+margin: 1rem 0;
+}
+input[type=text],input[type=date]{
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+}
+textarea{
+    max-width: 100%;
+    max-height: 10rem;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid black;
+    padding: 1rem;
+}
+button{
+    border: none;
+    background: green;
+    color: #fff;
+    border-radius: 10px;    
+    padding: 1rem;
+    width: 50%;
+    margin: 0 auto;
+    cursor: pointer;
+}
