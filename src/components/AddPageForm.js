@@ -10,7 +10,7 @@ class AddPageForm extends Component {
       description: '',
       type: 0,
       isActive: '',
-      datePublished: null,
+      publishedOn: null,
     };
   }
   // Form inputs events
@@ -31,27 +31,27 @@ class AddPageForm extends Component {
     this.setState({ isActive: updatedValue });
   };
   handleDatePublishedChange = (e) => {
-    this.setState({ datePublished: new Date(e.target.value).toISOString() });
+    this.setState({ publishedOn: new Date(e.target.value).toISOString() });
   };
   //Submit Event
-  handleSubmit = (e) => {
+  handleSubmit = async (e) => {
     e.preventDefault();
-    const { title, description, type, isActive, datePublished } = this.state;
+    const { title, description, type, isActive, publishedOn } = this.state;
     const page = {
       title,
       description,
       type,
       isActive,
-      datePublished,
+      publishedOn,
     };
     console.log(page);
-    axios.post(
+    await axios.post(
       `https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
       {
-        page,
-      }
+        page
+      },
     )
-    .then(res=>console.log(res))
+    .then(res=>console.log(res.data))
     .catch(err=>console.error(err))
   };
 
@@ -101,11 +101,11 @@ class AddPageForm extends Component {
             </select>
           </div>
           <div className='form-group'>
-            <label htmlFor='datePublished'>Publish Date</label>
+            <label htmlFor='publishedOn'>Publish Date</label>
             <input
               type='date'
-              name='datePublished'
-              id='datePublished'
+              name='publishedOn'
+              id='publishedOn'
               value={this.state.date}
               onChange={this.handleDatePublishedChange}
             />
