@@ -8,11 +8,12 @@ class AddPageForm extends Component {
     this.state = {
       title: '',
       description: '',
-      type: null,
-      isActive: null,
+      type: 0,
+      isActive: '',
       datePublished: null,
     };
   }
+  // Form inputs events
   handleTitleChange = (e) => {
     this.setState({ title: e.target.value });
   };
@@ -20,15 +21,19 @@ class AddPageForm extends Component {
     this.setState({ description: e.target.value });
   };
   handleTypeChange = (e) => {
-    this.setState({ type: e.target.value });
+    this.setState({ type: parseInt(e.target.value) });
   };
   handleIsActiveChange = (e) => {
-    this.setState({ isActive: e.target.value });
+    let updatedValue = e.target.value;
+    if (updatedValue === 'true' || updatedValue === 'false') {
+      updatedValue = Boolean(updatedValue);
+    }
+    this.setState({ isActive: updatedValue });
   };
   handleDatePublishedChange = (e) => {
-    this.setState({ datePublished: e.target.value });
+    this.setState({ datePublished: new Date(e.target.value).toISOString() });
   };
-
+  //Submit Event
   handleSubmit = (e) => {
     e.preventDefault();
     const { title, description, type, isActive, datePublished } = this.state;
@@ -39,16 +44,15 @@ class AddPageForm extends Component {
       isActive,
       datePublished,
     };
-
-    axios
-      .post(`https://pagesmanagement.azurewebsites.net/Api/responsivePages`, {
-        page
-      })
-      .then((res) => {    
-        console.log(res);
-        console.log(res.data);
-      })
-      .catch(err=>console.log(err))
+    console.log(page);
+    axios.post(
+      `https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
+      {
+        page,
+      }
+    )
+    .then(res=>console.log(res))
+    .catch(err=>console.error(err))
   };
 
   render() {
@@ -74,44 +78,27 @@ class AddPageForm extends Component {
             />
           </div>
           <div className='form-group'>
-            <p>Type</p>
-            <input
-              type='radio'
+            <p>Page Type</p>
+            <select
               name='type'
-              id='type0'
-              value='0'
-              checked={this.state.type === '0'}
-              onChange={this.handleTypeChange}
-            />
-            <label htmlFor='type0'>0</label>
-            <input
-              type='radio'
-              name='type'
-              id='type1'
-              value='1'
-              checked={this.state.type === '1'}
-              onChange={this.handleTypeChange}
-            />
-            <label htmlFor='type1'>1</label>
+              id='type'
+              value={this.state.value}
+              onChange={this.handleTypeChange}>
+              <option value='0'>Menu</option>
+              <option value='1'>Events</option>
+              <option value='2'>Content</option>
+            </select>
           </div>
           <div className='form-group'>
             <p>Page is active</p>
-            <input
-              type='radio'
+            <select
               name='isActive'
-              id='active'
-              checked={this.state.type === 'true'}
-              onChange={this.handleIsActiveChange}
-            />
-            <label htmlFor='active'>True</label>
-            <input
-              type='radio'
-              name='isActive'
-              id='notActive'             
-              checked={this.state.type === 'false'}
-              onChange={this.handleIsActiveChange}
-            />
-            <label htmlFor='notActive'>False</label>
+              id='isActive'
+              value={this.state.value}
+              onChange={this.handleIsActiveChange}>
+              <option value='true'>Active</option>
+              <option value='false'>Not Active</option>
+            </select>
           </div>
           <div className='form-group'>
             <label htmlFor='datePublished'>Publish Date</label>
