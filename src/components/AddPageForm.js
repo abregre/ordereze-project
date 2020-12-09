@@ -6,49 +6,49 @@ class AddPageForm extends Component {
   constructor() {
     super();
     this.state = {
-      title: '',
-      description: '',
-      type: 0,
-      isActive: '',
-      publishedOn: null,
+      Title: '',
+      Description: '',
+      Type: 0,
+      IsActive: true,
+      PublishedOn: '',
     };
   }
   // Form inputs events
   handleTitleChange = (e) => {
-    this.setState({ title: e.target.value });
+    this.setState({ Title: e.target.value });
   };
   handleDescriptionChange = (e) => {
-    this.setState({ description: e.target.value });
+    this.setState({ Description: e.target.value });
   };
   handleTypeChange = (e) => {
-    this.setState({ type: parseInt(e.target.value) });
+    this.setState({ Type: parseInt(e.target.value) });
   };
-  handleIsActiveChange = (e) => {
-    let updatedValue = (e.target.value === 'true');  
-    this.setState({ isActive: updatedValue });
+  handleIsActiveChange = (e) => {   
+    let updatedValue = (e.target.value === 'true')
+    this.setState({ IsActive: updatedValue });
   };
   handleDatePublishedChange = (e) => {
-    this.setState({ publishedOn:e.target.value });
+    this.setState({ PublishedOn: e.target.value });
   };
   //Submit Event
-  handleSubmit =  (e) => {
+  handleSubmit = (e) => {
     e.preventDefault();
-    const { title, description, type, isActive, publishedOn } = this.state;
+    const { Title, Description, Type, IsActive, PublishedOn } = this.state;
     const page = {
-      title,
-      description,
-      type,
-      isActive,
-      publishedOn,
+      Title,
+      Description,
+      Type,
+      IsActive,
+      PublishedOn,
     };
     console.log(page);
-     axios.post(`https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
-       {
-         page
-       } 
-     )     
-    .then(res=>console.log(res.data))
-    .catch(err=>console.error(err))
+    axios
+      .post(
+        `https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
+        page
+      )
+      .then((res) => console.log(res))
+      .catch((err) => console.error(err));
   };
 
   render() {
@@ -61,7 +61,7 @@ class AddPageForm extends Component {
               type='text'
               name='title'
               onChange={this.handleTitleChange}
-              value={this.state.title}
+              value={this.state.Title}
             />
           </div>
           <div className='form-group'>
@@ -70,7 +70,7 @@ class AddPageForm extends Component {
               type='text'
               name='description'
               onChange={this.handleDescriptionChange}
-              value={this.state.description}
+              value={this.state.Description}
             />
           </div>
           <div className='form-group'>
@@ -102,7 +102,7 @@ class AddPageForm extends Component {
               type='date'
               name='publishedOn'
               id='publishedOn'
-              value={this.state.date}
+              value={this.state.PublishedOn}
               onChange={this.handleDatePublishedChange}
             />
           </div>
