@@ -24,17 +24,14 @@ class AddPageForm extends Component {
     this.setState({ type: parseInt(e.target.value) });
   };
   handleIsActiveChange = (e) => {
-    let updatedValue = e.target.value;
-    if (updatedValue === 'true' || updatedValue === 'false') {
-      updatedValue = Boolean(updatedValue);
-    }
+    let updatedValue = (e.target.value === 'true');  
     this.setState({ isActive: updatedValue });
   };
   handleDatePublishedChange = (e) => {
-    this.setState({ publishedOn: new Date(e.target.value).toISOString() });
+    this.setState({ publishedOn:e.target.value });
   };
   //Submit Event
-  handleSubmit = async (e) => {
+  handleSubmit =  (e) => {
     e.preventDefault();
     const { title, description, type, isActive, publishedOn } = this.state;
     const page = {
@@ -45,12 +42,11 @@ class AddPageForm extends Component {
       publishedOn,
     };
     console.log(page);
-    await axios.post(
-      `https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
-      {
-        page
-      },
-    )
+     axios.post(`https://pagesmanagement.azurewebsites.net/Api/responsivePages`,
+       {
+         page
+       } 
+     )     
     .then(res=>console.log(res.data))
     .catch(err=>console.error(err))
   };
