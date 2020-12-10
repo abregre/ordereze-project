@@ -1,36 +1,87 @@
-.form-container{
-    max-width: 30rem;
-    width: 100%;
-    margin: 0 auto;    
+.form-container {
+  max-width: 30rem;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
 }
-.add-form{
-    display: flex;
-    flex-direction: column;
+.add-form {
+  display: flex;
+  flex-direction: column;
 }
-.form-group{  
-margin: 1rem 0;
+.form-group {
+  margin: 1rem 0;
 }
-input[type=text],input[type=date]{
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid black;
-    padding: 1rem;
+input[type='text'],
+input[type='date'] {
+  width: 90%;
+  border: 0;
+  border-bottom: 1px solid black;
+  padding: 1rem;
 }
-textarea{
-    max-width: 100%;
-    max-height: 10rem;
-    width: 100%;
-    border: 0;
-    border-bottom: 1px solid black;
-    padding: 1rem;
+textarea {
+  max-width: 90%;
+  max-height: 10rem;
+  width: 100%;
+  border: 0;
+  border-bottom: 1px solid black;
+  padding: 1rem;
 }
-button{
-    border: none;
-    background: green;
-    color: #fff;
-    border-radius: 10px;    
-    padding: 1rem;
-    width: 50%;
-    margin: 0 auto;
-    cursor: pointer;
+button {
+  border: none;
+  background: green;
+  color: #fff;
+  border-radius: 10px;
+  padding: 1rem;
+  width: 50%;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+select {
+  width: 100%;
+  font-size: 1.3rem;
+  padding: 0.5rem 1rem;
+  background-color: rgb(80, 78, 78);
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+}
+.custom-select {
+  position: relative;
+  width: 40%;
+}
+
+.custom-arrow {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: block;
+  background: rgb(36, 36, 36);
+  height: 100%;
+  width: 3rem;
+  border-radius: 10px;
+  pointer-events: none;
+}
+.custom-arrow::before,
+.custom-arrow::after{
+    --size:0.65rem;
+
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 0;
+    left: 50%;   
+    transform: translate(-50%,-50%);
+}
+.custom-arrow::before{
+    border-left: var(--size) solid transparent;
+    border-right: var(--size) solid transparent;
+    border-bottom: var(--size) solid rgb(116, 116, 116); 
+    top:35%
+}
+.custom-arrow::after{
+    border-left: var(--size) solid transparent;
+    border-right: var(--size) solid transparent;
+    border-top: var(--size) solid rgb(116, 116, 116); 
+    top: 65%;
 }

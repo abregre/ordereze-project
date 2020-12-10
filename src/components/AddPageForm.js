@@ -23,8 +23,8 @@ class AddPageForm extends Component {
   handleTypeChange = (e) => {
     this.setState({ Type: parseInt(e.target.value) });
   };
-  handleIsActiveChange = (e) => {   
-    let updatedValue = (e.target.value === 'true')
+  handleIsActiveChange = (e) => {
+    let updatedValue = e.target.value === 'true';
     this.setState({ IsActive: updatedValue });
   };
   handleDatePublishedChange = (e) => {
@@ -75,26 +75,32 @@ class AddPageForm extends Component {
           </div>
           <div className='form-group'>
             <p>Page Type</p>
-            <select
-              name='type'
-              id='type'
-              value={this.state.value}
-              onChange={this.handleTypeChange}>
-              <option value='0'>Menu</option>
-              <option value='1'>Events</option>
-              <option value='2'>Content</option>
-            </select>
+            <div className='custom-select'>
+              <select
+                name='type'
+                id='type'
+                value={this.state.value}
+                onChange={this.handleTypeChange}>
+                <option value='0'>Menu</option>
+                <option value='1'>Events</option>
+                <option value='2'>Content</option>
+              </select>
+              <span className='custom-arrow'></span>
+            </div>
           </div>
           <div className='form-group'>
             <p>Page is active</p>
-            <select
-              name='isActive'
-              id='isActive'
-              value={this.state.value}
-              onChange={this.handleIsActiveChange}>
-              <option value='true'>Active</option>
-              <option value='false'>Not Active</option>
-            </select>
+            <div className='custom-select'>
+              <select
+                name='isActive'
+                id='isActive'
+                value={this.state.value}
+                onChange={this.handleIsActiveChange}>
+                <option value='true'>Active</option>
+                <option value='false'>Not Active</option>
+              </select>
+              <span className='custom-arrow'></span>
+            </div>
           </div>
           <div className='form-group'>
             <label htmlFor='publishedOn'>Publish Date</label>
